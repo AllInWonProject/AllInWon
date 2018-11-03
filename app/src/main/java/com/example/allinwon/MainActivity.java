@@ -44,75 +44,8 @@ public class MainActivity extends Activity implements View.OnClickListener
         findViewById(R.id.login_signup).setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v)
-    {
-        switch(v.getId())
-        {
-            case R.id.login_button:
-                signUp();
-                break;
-            case R.id.login_signup:
-        }
+    public void test() {
+        
     }
 
-    public void signUp()
-    {
-        email = editText_email.getText().toString();
-        password = editText_password.getText().toString();
-
-        if(!isValid())
-        {
-            return;
-        }
-
-        setProgressDialog("로그인 중...");
-
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
-        {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task)
-            {
-                setProgressDialog("quit");
-                if(task.isSuccessful())
-                {
-                    user = firebaseAuth.getCurrentUser();
-                    Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    public void setProgressDialog(String message) {
-        if(message.equals("quit"))
-        {
-            progressDialog.dismiss();
-        }
-        else
-        {
-            progressDialog.setMessage(message);
-            progressDialog.show();
-        }
-    }
-
-    public boolean isValid()
-    {
-        boolean valid = true;
-
-        if(TextUtils.isEmpty(email))
-        {
-            editText_email.setError("이메일을 입력해주세요.");
-            valid = false;
-        } else if(TextUtils.isEmpty(password))
-        {
-            editText_password.setError("비밀번호를 입력해주세요.");
-            valid = false;
-        }
-
-        return valid;
-    }
 }
