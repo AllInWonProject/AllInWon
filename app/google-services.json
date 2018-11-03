@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "620486984001",
+    "firebase_url": "https://allinwon-1466c.firebaseio.com",
+    "project_id": "allinwon-1466c",
+    "storage_bucket": "allinwon-1466c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620486984001:android:64906b3bbeff291f",
+        "android_client_info": {
+          "package_name": "com.example.allinwon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620486984001-4l9rtsocqhec54ubmnscrpoqr6n76s97.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.allinwon",
+            "certificate_hash": "e1bfd2dd1d270af99a8986dc37300e3b2b5a8ed7"
+          }
+        },
+        {
+          "client_id": "620486984001-695knlcu59jnms6mgkr24mjang9vfo0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBkpVSMGsThwYlSluoyPA3X82fw0k__J4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620486984001-695knlcu59jnms6mgkr24mjang9vfo0b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
