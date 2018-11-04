@@ -14,8 +14,7 @@ import java.util.Map;
 
 public class Database {
     private static final String TAG = "Database";
-
-    private static String USER = "사용자";
+    private static final String USER = "사용자";
 
     private static FirebaseFirestore firebaseFirestore;
     private static Database database;

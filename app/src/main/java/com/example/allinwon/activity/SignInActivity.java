@@ -15,6 +15,9 @@ import com.example.allinwon.R;
 import com.example.allinwon.database.Database;
 import com.example.allinwon.database.DatabaseInterface;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignInActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "SignInActivity";
 
@@ -95,13 +98,22 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     };
 
     public boolean isValidForm() {
+        Pattern emailPattern = Pattern.compile("^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$");
+        Matcher matcher = emailPattern.matcher(editText_email.getText().toString());
+
         boolean valid = true;
 
         if(TextUtils.isEmpty(editText_email.getText().toString())) {
             editText_email.setError("이메일을 입력해주세요.");
             valid = false;
+        } if(!editText_email.getText().toString().isEmpty() && !matcher.matches()) {
+            editText_email.setError("유효한 이메일을 입력해주세요.");
+            valid = false;
         } if(TextUtils.isEmpty(editText_password.getText().toString())) {
             editText_password.setError("비밀번호를 입력해주세요.");
+            valid = false;
+        } if(editText_password.getText().toString().length() < 6) {
+            editText_password.setError("비밀번호는 6자리 이상 입력해주세요.");
             valid = false;
         }
 

@@ -69,7 +69,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         if(TextUtils.isEmpty(editText_email.getText().toString())) {
             editText_email.setError("이메일을 입력해주세요.");
             valid = false;
-        } if(!matcher.matches()) {
+        } if(!editText_email.getText().toString().isEmpty() && !matcher.matches()) {
             editText_email.setError("유효한 이메일을 입력해주세요.");
             valid = false;
         } if(TextUtils.isEmpty(editText_name.getText().toString())) {
