@@ -4,6 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SignUpActivity">
+    tools:context=".activity.SignUpActivity"
+    android:orientation="vertical"
+    android:background="@color/darkme">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/left_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/right_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/top_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/middle_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.293" />
+
+    <EditText
+        android:id="@+id/signup_email"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/graylight"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="이메일을 입력해주세요"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        app:layout_constraintLeft_toLeftOf="@id/left_guide"
+        app:layout_constraintRight_toRightOf="@id/right_guide"
+        app:layout_constraintTop_toBottomOf="@id/middle_guide" />
+
+    <EditText
+        android:id="@+id/signup_name"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/graylight"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="이름을 입력해주세요"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        app:layout_constraintLeft_toLeftOf="@id/left_guide"
+        app:layout_constraintRight_toRightOf="@id/right_guide"
+        app:layout_constraintTop_toBottomOf="@id/signup_email" />
+
+    <EditText
+        android:id="@+id/signup_password1"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/graylight"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="비밀번호를 입력해주세요"
+        android:inputType="textVisiblePassword"
+        android:singleLine="true"
+        app:layout_constraintLeft_toLeftOf="@id/left_guide"
+        app:layout_constraintRight_toRightOf="@id/right_guide"
+        app:layout_constraintTop_toBottomOf="@id/signup_name" />
+
+    <EditText
+        android:id="@+id/signup_password2"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/graylight"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="비밀번호를 재입력해주세요"
+        android:inputType="textVisiblePassword"
+        android:singleLine="true"
+        app:layout_constraintLeft_toLeftOf="@id/left_guide"
+        app:layout_constraintRight_toRightOf="@id/right_guide"
+        app:layout_constraintTop_toBottomOf="@id/signup_password1" />
+
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="회원가입"
+        android:textColor="@color/graylight"
+        app:layout_constraintLeft_toLeftOf="@id/left_guide"
+        app:layout_constraintRight_toRightOf="@id/right_guide"
+        app:layout_constraintTop_toBottomOf="@id/signup_password2" />
 
 </android.support.constraint.ConstraintLayout>

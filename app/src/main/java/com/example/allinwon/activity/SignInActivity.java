@@ -2,6 +2,7 @@ package com.example.allinwon.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -42,6 +43,9 @@ public class SignInActivity extends Activity implements View.OnClickListener {
                 signUp();
                 break;
             case R.id.login_signup:
+                Intent intent= new Intent(this, SignUpActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.rightin_activity, R.anim.not_move_activity);
         }
     }
 
