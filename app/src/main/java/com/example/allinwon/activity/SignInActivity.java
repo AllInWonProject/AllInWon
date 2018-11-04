@@ -1,31 +1,25 @@
 package com.example.allinwon.activity;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.example.allinwon.firebase.User;
-import com.example.allinwon.firebase.Authentication;
-import com.example.allinwon.firebase.Database;
-import com.example.allinwon.firebase.FirebaseInterface;
+
+import com.example.allinwon.authentication.Auth;
+import com.example.allinwon.authentication.AuthInterface;
 import com.example.allinwon.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.allinwon.database.Database;
+import com.example.allinwon.database.DatabaseInterface;
 
-public class SignInActivity extends Activity implements View.OnClickListener {
+public class SignInActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = "SignInActivity";
+
     private EditText editText_email, editText_password;
-    private ProgressDialog progressDialog;
-    private String email, password;
-    private User currentUser;
-    private String name;
+    private TextView textView_boolean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +29,12 @@ public class SignInActivity extends Activity implements View.OnClickListener {
         editText_email = findViewById(R.id.login_email);
         editText_password = findViewById(R.id.login_password);
 
-        progressDialog = new ProgressDialog(this);
+        textView_boolean = findViewById(R.id.login_boolean);
 
         findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.login_signup).setOnClickListener(this);
+
+        autoLogin();
     }
 
     @Override
@@ -54,46 +50,57 @@ public class SignInActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public void signIn() {
-        email = editText_email.getText().toString();
-        password = editText_password.getText().toString();
+    public void autoLogin() {
+        showProgress("자동 로그인 여부 확인 중,,,");
+        Database.getInstance().setTextViewBoolean(Auth.getInstance().getCurrentUser().getEmail(), "자동로그인", textView_boolean, autoLoginInterface);
+    }
 
-        if(!isValid()) {
+    DatabaseInterface autoLoginInterface = new DatabaseInterface() {
+        @Override
+        public void onSuccess() {
+            hideProgress();
+            if(Auth.getInstance().getCurrentUser() != null && textView_boolean.getText().toString().equals("true")) {
+                Log.d(TAG, "자동 로그인 성공");
+                showToastMessage(getApplicationContext(), "자동 로그인 성공");
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        }
+    };
+
+    public void signIn() {
+        if(!isValidForm()) {
             return;
         }
 
-        progressDialog.setMessage("로그인 중...");
-        progressDialog.show();
-
-        Authentication.getInstance().signInFirebase(email, password, signInInterface);
+        showProgress("로그인 중...");
+        Auth.getInstance().signInFirebase(editText_email.getText().toString(), editText_password.getText().toString(), signInInterface);
     }
 
-    FirebaseInterface signInInterface = new FirebaseInterface() {
+    AuthInterface signInInterface = new AuthInterface() {
         @Override
         public void onSuccess() {
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
-            currentUser = new User();
-            Database.getInstance().setAutoLogin(email, "on");
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("userInfo", currentUser);
-            startActivity(intent);
+            hideProgress();
+            Database.getInstance().setAutoLogin(editText_email.getText().toString());
+            showToastMessage(getApplicationContext(), "로그인 성공");
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            overridePendingTransition(R.anim.rightin_activity, R.anim.not_move_activity);
+            finish();
         }
 
         @Override
         public void onFailure() {
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+            hideProgress();
+            showToastMessage(getApplicationContext(), "로그인 실패");
         }
     };
 
-    public boolean isValid() {
+    public boolean isValidForm() {
         boolean valid = true;
 
-        if(TextUtils.isEmpty(email)) {
+        if(TextUtils.isEmpty(editText_email.getText().toString())) {
             editText_email.setError("이메일을 입력해주세요.");
             valid = false;
-        } if(TextUtils.isEmpty(password)) {
+        } if(TextUtils.isEmpty(editText_password.getText().toString())) {
             editText_password.setError("비밀번호를 입력해주세요.");
             valid = false;
         }

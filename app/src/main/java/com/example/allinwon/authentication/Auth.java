@@ -1,6 +1,7 @@
-package com.example.allinwon.firebase;
+package com.example.allinwon.authentication;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -8,19 +9,21 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Authentication {
-    private static FirebaseAuth firebaseAuth;
-    private static Authentication authentication;
+public class Auth {
+    private  static final String TAG = "Auth";
 
-    public static Authentication getInstance() {
-        if(authentication == null) {
-            authentication = new Authentication();
+    private static FirebaseAuth firebaseAuth;
+    private static Auth auth;
+
+    public static Auth getInstance() {
+        if(auth == null) {
+            auth = new Auth();
         }
 
-        return authentication;
+        return auth;
     }
 
-    private Authentication() {
+    private Auth() {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
@@ -28,27 +31,29 @@ public class Authentication {
         return firebaseAuth.getCurrentUser();
     }
 
-    public void signInFirebase(String email, String password, final FirebaseInterface firebaseInterface) {
+    public void signInFirebase(String email, String password, final AuthInterface authInterface) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    firebaseInterface.onSuccess();
+                    Log.d(TAG, "로그인 성공");
+                    authInterface.onSuccess();
                 } else {
-                    firebaseInterface.onFailure();
+                    authInterface.onFailure();
                 }
             }
         });
     }
 
-    public void signUpFirebase(String email, String password, final FirebaseInterface firebaseInterface) {
+    public void signUpFirebase(String email, String password, final AuthInterface authInterface) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    firebaseInterface.onSuccess();
+                    Log.d(TAG, "회원가입 성공");
+                    authInterface.onSuccess();
                 } else {
-                    firebaseInterface.onFailure();
+                    authInterface.onFailure();
                 }
             }
         });

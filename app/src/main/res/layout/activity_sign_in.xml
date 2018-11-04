@@ -126,6 +126,15 @@
         app:layout_constraintLeft_toLeftOf="@id/logo_left"
         app:layout_constraintRight_toRightOf="@id/logo_right" />
 
+    <TextView
+        android:id="@+id/login_boolean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
+
 
 </android.support.constraint.ConstraintLayout>
 
