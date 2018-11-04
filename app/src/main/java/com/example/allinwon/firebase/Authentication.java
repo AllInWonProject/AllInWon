@@ -24,41 +24,33 @@ public class Authentication {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public void signIn(String email, String password, final AuthInterface authInterface) {
+    public FirebaseUser getCurrentUser() {
+        return firebaseAuth.getCurrentUser();
+    }
+
+    public void signInFirebase(String email, String password, final FirebaseInterface firebaseInterface) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    authInterface.onSuccess();
+                    firebaseInterface.onSuccess();
                 } else {
-                    authInterface.onFailure();
+                    firebaseInterface.onFailure();
                 }
             }
         });
     }
 
-    public void signUp(String email, String password, final AuthInterface authInterface) {
+    public void signUpFirebase(String email, String password, final FirebaseInterface firebaseInterface) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    authInterface.onSuccess();
+                    firebaseInterface.onSuccess();
                 } else {
-                    authInterface.onFailure();
+                    firebaseInterface.onFailure();
                 }
             }
         });
-    }
-
-    public boolean isCurrentUser() {
-        if(firebaseAuth.getCurrentUser() != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public FirebaseUser getCurrentUser() {
-        return firebaseAuth.getCurrentUser();
     }
 }

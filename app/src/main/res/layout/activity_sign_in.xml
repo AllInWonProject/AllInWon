@@ -73,7 +73,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="비밀번호를 입력해주세요"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:singleLine="true"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@id/left_guide"

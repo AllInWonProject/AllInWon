@@ -1,6 +1,6 @@
 package com.example.allinwon.firebase;
 
-public interface AuthInterface {
+public interface FirebaseInterface {
     void onSuccess();
     void onFailure();
 }
